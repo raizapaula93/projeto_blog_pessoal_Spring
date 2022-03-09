@@ -3,6 +3,7 @@ package org.generation.blogPessoal.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,9 +35,13 @@ public class Postagem {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date = new java.sql.Date(System.currentTimeMillis());
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JsonIgnoreProperties("postagem")
 	private Tema tema;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JsonIgnoreProperties("minhasPostagens")
+	private Usuario criador;
 
 	public long getId() {
 		return id;
@@ -78,4 +83,11 @@ public class Postagem {
 		this.tema = tema;
 	}
 
+	public Usuario getCriador() {
+		return criador;
+	}
+
+	public void setCriador(Usuario criador) {
+		this.criador = criador;
+	}
 }
