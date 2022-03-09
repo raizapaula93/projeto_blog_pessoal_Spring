@@ -29,15 +29,15 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Override
-	protected void configure(HttpSecurity http) throws Exception {
+	protected void configure(HttpSecurity http) throws Exception {//tem que configurar a rota
 		http.authorizeRequests()
-		.antMatchers("/usuarios/logar").permitAll()
-		.antMatchers("/usuarios/cadastrar").permitAll()
-		.anyRequest().authenticated()
-		.and().httpBasic()
-		.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-		.and().cors()
-		.and().csrf().disable();
+		.antMatchers("/usuarios/logar").permitAll()//rota liberada
+		.antMatchers("/usuarios/cadastrar").permitAll()// rota liberada
+		.anyRequest().authenticated()//quaisquers outras
+		.and().httpBasic()//autenticação padrão basic
+		.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)//não gerencio o tempo que o usuário fica logado
+		.and().cors()//permissão de acesso pra um cliente externo
+		.and().csrf().disable();//desabilita o ataque csrf
 	}
 
 }
