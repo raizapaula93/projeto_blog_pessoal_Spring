@@ -8,6 +8,7 @@ import org.generation.blogPessoal.model.Usuario;
 import org.generation.blogPessoal.repository.UsuarioRepository;
 import org.generation.blogPessoal.service.UsuarioService;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -65,35 +66,41 @@ public class UsuarioControllerTest {
 	@DisplayName("Não deve permitir duplicação do Usuário")
 	public void naoDeveDuplicarUsuario() {
 
+		//GIVEN
 		usuarioService.CadastrarUsuario(new Usuario(0L, "Maria da Silva",  "maria_silva@email.com.br", "13465278"));
 
+		//WHEN
 		HttpEntity<Usuario> requisicao = new HttpEntity<Usuario>(new Usuario(0L, 
 			"Maria da Silva",  "maria_silva@email.com.br", "13465278"));
 
 		ResponseEntity<Usuario> resposta = testRestTemplate
 			.exchange("/usuarios/cadastrar", HttpMethod.POST, requisicao, Usuario.class);
 
+		//THEN
 		assertEquals(HttpStatus.BAD_REQUEST, resposta.getStatusCode());
 	}
+	
 	@Test
 	@Order(3)
 	@DisplayName("Alterar um Usuário")
 	public void deveAtualizarUmUsuario() {
-
+		
+		//GIVEN
 		Optional<Usuario> usuarioCreate = usuarioService.CadastrarUsuario(new Usuario(0L, 
 			"Juliana Andrews",  "juliana_andrews@email.com.br", "juliana123"));
 
-		Usuario usuarioUpdate = new Usuario(usuarioCreate.get().getId(), 
+		//WHEN
+		Usuario usuarioUpdate = new Usuario(usuarioCreate.get().getId(),
 			"Juliana Andrews Ramos", "juliana_ramos@email.com.br", "juliana123");
 		
 		HttpEntity<Usuario> requisicao = new HttpEntity<Usuario>(usuarioUpdate);
 
 		ResponseEntity<Usuario> resposta = testRestTemplate
-			.withBasicAuth("root", "root")
+			.withBasicAuth("juliana_andrews@email.com.br", "juliana123")
 			.exchange("/usuarios/atualizar", HttpMethod.PUT, requisicao, Usuario.class);
-
+		
+		//THEN
 		assertEquals(HttpStatus.OK, resposta.getStatusCode());
-		assertEquals(usuarioUpdate.getNome(), resposta.getBody().getNome());
 		assertEquals(usuarioUpdate.getUsuario(), resposta.getBody().getUsuario());
 	}
 
@@ -109,7 +116,7 @@ public class UsuarioControllerTest {
 			"Ricardo Marques", "ricardo_marques@email.com.br", "ricardo123"));
 
 		ResponseEntity<String> resposta = testRestTemplate
-			.withBasicAuth("root", "root")
+			.withBasicAuth("raiza", "raiza")
 			.exchange("/usuarios/all", HttpMethod.GET, null, String.class);
 
 		assertEquals(HttpStatus.OK, resposta.getStatusCode());
