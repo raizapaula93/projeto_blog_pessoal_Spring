@@ -22,9 +22,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+
+
 @RestController
 @RequestMapping("/temas")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+@Tag(name = "Controller Tema", description = "Controller do Menu Tema")
 public class TemaController {
 
 	@Autowired
