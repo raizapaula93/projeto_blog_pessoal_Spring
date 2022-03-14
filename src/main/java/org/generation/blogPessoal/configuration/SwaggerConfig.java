@@ -9,8 +9,8 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
-import io.swagger.v3.oas.models.responses.ApiResponse;
-import io.swagger.v3.oas.models.responses.ApiResponses;
+//import io.swagger.v3.oas.models.responses.ApiResponse;
+//import io.swagger.v3.oas.models.responses.ApiResponses;
 
 @Configuration
 public class SwaggerConfig {
@@ -33,7 +33,7 @@ public class SwaggerConfig {
 					.description("Github")
 					.url("https://github.com/raizapaula93/projeto_blog_pessoal_Spring/"));
 	}
-
+	/**
 	@Bean
 	public OpenApiCustomiser customerGlobalHeaderOpenApiCustomiser() {
 
@@ -58,5 +58,5 @@ public class SwaggerConfig {
 
 		return new ApiResponse().description(message);
 
-	}
+	}*/
 }	
