@@ -22,24 +22,62 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 
 
 
 @RestController
 @RequestMapping("/temas")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@Tag(name = "Controller Tema", description = "Controller do Menu Tema")
+@Tag(name = "Configuração de Tema", description = "Controller de Tema")
 public class TemaController {
 
 	@Autowired
 	private TemaRepository repository;
-
+	
+	@Operation(summary = "Selecione os temas")
+	@ApiResponses(value = {
+			@ApiResponse(
+					responseCode = "200",
+					description = "Lista de temas",
+					content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Tema.class))}
+					),
+			@ApiResponse(
+					responseCode = "204",
+					description = "Tema não encontrado",
+					content = { @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseStatusException.class))}
+					),
+			@ApiResponse(
+					responseCode = "500",
+					description = "Internal server error",
+					content = @Content
+					)
+	})
+	
+	
+	
+//	@GetMapping
+//	public ResponseEntity<List<Tema>> getAll(){
+//		return ResponseEntity.ok(repository.findAll());
+//	}
+	
 	@GetMapping
 	public ResponseEntity<List<Tema>> getAll(){
-		return ResponseEntity.ok(repository.findAll());
+		List<Tema> list = repository.findAll();
+		if (list.isEmpty()) {
+			return ResponseEntity.status(204).build();
+		} else {
+			return ResponseEntity.status(200).body(list);
+		}
 	}
-
+		
 	@GetMapping("/{id}")
 	public ResponseEntity<Tema> getById(@PathVariable long id){
 		return repository.findById(id).map(resp -> ResponseEntity.ok(resp))
