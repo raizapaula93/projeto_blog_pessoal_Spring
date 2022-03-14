@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 
+
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -78,11 +79,24 @@ public class TemaController {
 		}
 	}
 		
+//	@GetMapping("/{id}")
+//	public ResponseEntity<Tema> getById(@PathVariable long id){
+//		return repository.findById(id).map(resp -> ResponseEntity.ok(resp))
+//				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
+	//}
+	
+	
+	
+	@Operation(summary = "Seleciona por ID")
 	@GetMapping("/{id}")
-	public ResponseEntity<Tema> getById(@PathVariable long id){
-		return repository.findById(id).map(resp -> ResponseEntity.ok(resp))
-				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
+	public ResponseEntity<Tema> getById(@PathVariable(value = "id") Long id) {
+		return repository.findById(id)
+				.map(resp -> ResponseEntity.status(200).body(resp))
+				.orElseGet(() -> {
+					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tema não encontrado");
+				});
 	}
+	
 
 	@GetMapping("/descricao/{descricao}")
 	public ResponseEntity<List<Tema>> getByTitle(@PathVariable String descricao){
