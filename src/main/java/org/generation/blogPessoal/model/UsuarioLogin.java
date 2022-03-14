@@ -15,7 +15,7 @@ public class UsuarioLogin {
 	private String token;
 	
 	/* Insira os Getters and Setters */
-	}
+	
 
 	public long getId() {
 		return id;
