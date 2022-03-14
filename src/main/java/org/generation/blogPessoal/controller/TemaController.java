@@ -97,12 +97,13 @@ public class TemaController {
 				});
 	}
 	
-
+	@Operation(summary = "Seleciona por assunto")
 	@GetMapping("/descricao/{descricao}")
 	public ResponseEntity<List<Tema>> getByTitle(@PathVariable String descricao){
 		return ResponseEntity.ok(repository.findAllByDescricaoContainingIgnoreCase(descricao));
 	}
-
+	
+	@Operation(summary = "Atualiza um tema")
 	@PostMapping
 	public ResponseEntity<Tema> post(@Valid @RequestBody Tema tema){
 		return ResponseEntity.status(HttpStatus.CREATED)
