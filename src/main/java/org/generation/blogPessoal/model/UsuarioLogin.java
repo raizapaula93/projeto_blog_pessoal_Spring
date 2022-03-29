@@ -14,6 +14,8 @@ public class UsuarioLogin {
 
 	private String token;
 	
+	private String tipo;
+	
 	/* Insira os Getters and Setters */
 	
 
@@ -63,6 +65,14 @@ public class UsuarioLogin {
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 }	
