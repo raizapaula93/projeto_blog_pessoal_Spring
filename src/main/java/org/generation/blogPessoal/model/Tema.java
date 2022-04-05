@@ -28,15 +28,12 @@ public class Tema {
 	@JsonIgnoreProperties("tema")
 	private List<Postagem> postagem;
 
-	/*Insira os Getters and Setters*/
-
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
-		
 	}
 
 	public String getDescricao() {
@@ -55,3 +52,5 @@ public class Tema {
 		this.postagem = postagem;
 	}
 }
+	/*Insira os Getters and Setters*/
+

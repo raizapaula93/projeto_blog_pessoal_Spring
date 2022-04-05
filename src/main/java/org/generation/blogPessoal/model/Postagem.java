@@ -41,14 +41,12 @@ public class Postagem {
 	@JsonIgnoreProperties("postagem")
 	private Usuario usuario;
 
-	/*Insira os Getters and Setters*/
+	public Long getId() {
+		return id;
+	}
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Long getId() {
-		return id;
 	}
 
 	public String getTitulo() {
@@ -90,5 +88,6 @@ public class Postagem {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-
 }
+	/*Insira os Getters and Setters*/
+
