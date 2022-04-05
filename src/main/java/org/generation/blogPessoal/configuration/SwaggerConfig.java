@@ -19,7 +19,7 @@ public class SwaggerConfig {
 	public OpenAPI springblogPessoalOpenAPI() {
 		return new OpenAPI()
 				.info(new Info()
-					.title("Projeto Blog Pessoal")
+					.title(" Projeto Blog Pessoal")
 					.description("API de blog pessoal construído em linguagem Java - Generation Brasil")
 					.version("v0.0.1")
 				.license(new License()
